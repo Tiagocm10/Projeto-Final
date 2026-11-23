@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Cinema | A Experiência da Sétima Arte</title>
+
+    <!-- Fontes, Ícones e Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="projeto.css">
+</head>
+<body>
+
+    <!-- PRINT 1: BARRA DE ACESSIBILIDADE -->
+    <div class="bg-topo border-b border-tema text-xs">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2">
+            <span class="font-semibold text-suave flex items-center gap-1">
+                <span class="material-symbols-outlined text-base text-ouro">accessibility_new</span>
+                Acessibilidade Lumina:
+            </span>
+            <div class="flex flex-wrap gap-2">
+                <button id="btn-tema" onclick="mudarTema()" class="a11y-btn">Modo Claro</button>
+                <button onclick="mudarFonte(-5)" class="a11y-btn">A-</button>
+                <button onclick="mudarFonte(0)" class="a11y-btn">A</button>
+                <button onclick="mudarFonte(5)" class="a11y-btn">A+</button>
+                <button id="btn-contraste" onclick="alternarContraste()" class="a11y-btn">Alto Contraste</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRINT 1: CABEÇALHO FIXO -->
+    <header class="sticky top-0 z-40 bg-header backdrop-blur border-b border-tema">
+        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+            <a href="#inicio" class="text-ouro font-titulo text-xl font-bold tracking-wider flex items-center gap-2">
+                <span class="material-symbols-outlined">movie_filter</span>
+                LUMINA CINEMA
+            </a>
+
+            <nav class="hidden md:flex gap-6 text-sm font-semibold">
+                <a href="#inicio" class="hover:text-ouro">Início</a>
+                <a href="#carrossel" class="hover:text-ouro">Destaques</a>
+                <a href="#catalogo" class="hover:text-ouro">Em Cartaz</a>
+                <a href="#diferenciais" class="hover:text-ouro">Experiência</a>
+                <a href="#contato" class="hover:text-ouro">Contato</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <input id="busca" oninput="filtrarFilmes()" type="search" placeholder="Buscar filmes..."
+                    class="bg-card border border-tema rounded-full px-3 py-1.5 text-sm w-36 sm:w-48 outline-none">
+
+                <span class="bg-card border border-tema rounded-full px-3 py-1 text-xs font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-ouro text-sm">bookmark</span>
+                    <span id="contador">0</span>
+                </span>
+
+                <button onclick="abrirModal('modal-login')" class="btn-ouro px-4 py-1.5 rounded-full text-sm font-bold flex items-center gap-1">
+                    <span class="material-symbols-outlined text-base">person</span>
+                    <span id="user-label">Entrar</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="inicio">
+        <!-- PRINT 1: BANNER PRINCIPAL (HERO) -->
+        <section class="relative min-h-[520px] flex items-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=1600&q=80" alt="Sala de cinema"
+                class="absolute inset-0 w-full h-full object-cover opacity-30">
+            <div class="hero-gradiente absolute inset-0"></div>
+
+            <div class="relative z-10 max-w-6xl mx-auto w-full px-4 py-16">
+                <span class="text-ouro uppercase tracking-widest text-xs font-bold">● Destaque da Semana • Sessão IMAX</span>
+                <h1 class="font-titulo text-4xl sm:text-6xl font-bold mt-3 max-w-2xl">Chronos: O Fim do Silêncio</h1>
+                <p class="text-sm text-suave mt-4">2026 • Ficção Científica • 2h 48min • <strong class="text-ouro">★ 9.2 / 10</strong></p>
+                <p class="max-w-xl mt-4 text-suave leading-relaxed">
+                    Em uma estação no deserto de Atacama, astrofísicos captam uma frequência que altera a percepção do tempo humano.
+                </p>
+
+                <div class="flex flex-wrap gap-3 mt-7">
+                    <a href="#catalogo" class="btn-ouro px-6 py-3 rounded-lg font-bold inline-flex items-center gap-2">
+                        <span class="material-symbols-outlined">local_movies</span> Ver filmes em cartaz
+                    </a>
+                    <button onclick="abrirTrailer('Chronos: O Fim do Silêncio')" class="bg-card border border-tema px-6 py-3 rounded-lg font-semibold inline-flex items-center gap-2 hover:border-ouro">
+                        <span class="material-symbols-outlined text-ouro">play_circle</span> Assistir trailer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRINT 2: CARROSSEL DE IMAGENS -->
+        <section id="carrossel" class="max-w-6xl mx-auto px-4 py-12">
+            <span class="text-ouro text-xs font-bold uppercase tracking-widest">Galeria Visual</span>
+            <h2 class="font-titulo text-3xl font-bold mt-1 mb-6">Mostra Especial &amp; Bastidores</h2>
+
+            <div class="relative rounded-2xl overflow-hidden border border-tema">
+                <div id="slides" class="flex transition-transform duration-500">
+                    <!-- Slide 1 -->
+                    <div class="min-w-full relative h-[380px]">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=1400&q=80" alt="Poltronas" class="w-full h-full object-cover">
+                        <div class="slide-legenda absolute inset-0 flex flex-col justify-end p-8">
+                            <span class="text-ouro text-xs font-bold uppercase">Festival Lumina</span>
+                            <h3 class="font-titulo text-2xl md:text-3xl font-bold text-white mt-1">Mostra Internacional de Cinema Autoral</h3>
+                            <p class="text-gray-200 text-sm mt-1">Sessões comentadas com diretores convidados e projeção em 4K.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="min-w-full relative h-[380px]">
+                        <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=1400&q=80" alt="Projetor" class="w-full h-full object-cover">
+                        <div class="slide-legenda absolute inset-0 flex flex-col justify-end p-8">
+                            <span class="text-ouro text-xs font-bold uppercase">Retrospectiva 70mm</span>
+                            <h3 class="font-titulo text-2xl md:text-3xl font-bold text-white mt-1">Clássicos Eternos na Tela Grande</h3>
+                            <p class="text-gray-200 text-sm mt-1">Revisite obras-primas como Sol Noturno com áudio remasterizado.</p>
+                        </div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="min-w-full relative h-[380px]">
+                        <img src="https://images.unsplash.com/photo-1595769816263-9b910be24d5f?w=1400&q=80" alt="Estreia" class="w-full h-full object-cover">
+                        <div class="slide-legenda absolute inset-0 flex flex-col justify-end p-8">
+                            <span class="text-ouro text-xs font-bold uppercase">Pré-Estreia VIP</span>
+                            <h3 class="font-titulo text-2xl md:text-3xl font-bold text-white mt-1">Noite de Gala: O Silêncio dos Espelhos</h3>
+                            <p class="text-gray-200 text-sm mt-1">Sessão de abertura com debate exclusivo do elenco.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Setas -->
+                <button onclick="mudarSlide(-1)" aria-label="Anterior" class="seta-carrossel left-3">‹</button>
+                <button onclick="mudarSlide(1)" aria-label="Próximo" class="seta-carrossel right-3">›</button>
+
+                <!-- Marcadores Inferiores -->
+                <div class="absolute bottom-4 right-5 flex gap-2">
+                    <button onclick="irParaSlide(0)" class="dot ativo" aria-label="Slide 1"></button>
+                    <button onclick="irParaSlide(1)" class="dot" aria-label="Slide 2"></button>
+                    <button onclick="irParaSlide(2)" class="dot" aria-label="Slide 3"></button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRINT 3: ABAS DE FILTRO E CARTÕES DE FILMES -->
+        <section id="catalogo" class="max-w-6xl mx-auto px-4 py-10">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <h2 class="font-titulo text-3xl font-bold">Explorar Catálogo</h2>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="selecionarAba('todos', this)" class="tab ativo">Todos</button>
+                    <button onclick="selecionarAba('estreias', this)" class="tab">Estreias</button>
+                    <button onclick="selecionarAba('em-breve', this)" class="tab">Em breve</button>
+                    <button onclick="selecionarAba('classicos', this)" class="tab">Clássicos</button>
+                    <button onclick="selecionarAba('watchlist', this)" class="tab">Minha Watchlist</button>
+                </div>
+            </div>
+
+            <p class="text-sm text-suave mb-6">Exibindo <strong id="total-filmes" class="text-ouro">4</strong> filme(s)</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Filme 1 -->
+                <article class="filme bg-card border border-tema rounded-xl overflow-hidden flex flex-col" data-id="1" data-cat="estreias">
+                    <div class="relative aspect-[2/3]">
+                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500&q=80" alt="O Silêncio dos Espelhos" class="w-full h-full object-cover">
+                        <button onclick="favoritar('1', 'O Silêncio dos Espelhos')" data-id="1" class="fav-btn" title="Salvar na Watchlist">
+                            <span class="material-symbols-outlined text-lg">bookmark</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between text-xs"><span class="text-ouro font-bold">★ 8.9</span><span class="text-suave">Estreia</span></div>
+                            <h3 class="font-titulo font-bold text-lg mt-1">O Silêncio dos Espelhos</h3>
+                            <p class="text-xs text-suave mt-1">Drama Psicológico • 2h 12min</p>
+                        </div>
+                        <button onclick="abrirTrailer('O Silêncio dos Espelhos')" class="mt-4 w-full py-2 rounded-lg border border-tema text-xs font-bold uppercase hover:bg-ouro">Ver Trailer</button>
+                    </div>
+                </article>
+
+                <!-- Filme 2 -->
+                <article class="filme bg-card border border-tema rounded-xl overflow-hidden flex flex-col" data-id="2" data-cat="estreias">
+                    <div class="relative aspect-[2/3]">
+                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500&q=80" alt="Maré de Cinzas" class="w-full h-full object-cover">
+                        <button onclick="favoritar('2', 'Maré de Cinzas')" data-id="2" class="fav-btn" title="Salvar na Watchlist">
+                            <span class="material-symbols-outlined text-lg">bookmark</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between text-xs"><span class="text-ouro font-bold">★ 9.1</span><span class="text-suave">Estreia</span></div>
+                            <h3 class="font-titulo font-bold text-lg mt-1">Maré de Cinzas</h3>
+                            <p class="text-xs text-suave mt-1">Suspense Noir • 1h 58min</p>
+                        </div>
+                        <button onclick="abrirTrailer('Maré de Cinzas')" class="mt-4 w-full py-2 rounded-lg border border-tema text-xs font-bold uppercase hover:bg-ouro">Ver Trailer</button>
+                    </div>
+                </article>
+
+                <!-- Filme 3 -->
+                <article class="filme bg-card border border-tema rounded-xl overflow-hidden flex flex-col" data-id="3" data-cat="classicos">
+                    <div class="relative aspect-[2/3]">
+                        <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=500&q=80" alt="Sol Noturno" class="w-full h-full object-cover">
+                        <button onclick="favoritar('3', 'Sol Noturno')" data-id="3" class="fav-btn" title="Salvar na Watchlist">
+                            <span class="material-symbols-outlined text-lg">bookmark</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between text-xs"><span class="text-ouro font-bold">★ 9.5</span><span class="text-suave">Clássico</span></div>
+                            <h3 class="font-titulo font-bold text-lg mt-1">Sol Noturno</h3>
+                            <p class="text-xs text-suave mt-1">Clássico 1974 • 2h 25min</p>
+                        </div>
+                        <button onclick="abrirTrailer('Sol Noturno')" class="mt-4 w-full py-2 rounded-lg border border-tema text-xs font-bold uppercase hover:bg-ouro">Ver Trailer</button>
+                    </div>
+                </article>
+
+                <!-- Filme 4 -->
+                <article class="filme bg-card border border-tema rounded-xl overflow-hidden flex flex-col" data-id="4" data-cat="em-breve">
+                    <div class="relative aspect-[2/3]">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=500&q=80" alt="O Meridiano Polar" class="w-full h-full object-cover">
+                        <button onclick="favoritar('4', 'O Meridiano Polar')" data-id="4" class="fav-btn" title="Salvar na Watchlist">
+                            <span class="material-symbols-outlined text-lg">bookmark</span>
+                        </button>
+                    </div>
+                    <div class="p-4 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between text-xs"><span class="text-ouro font-bold">★ 8.8</span><span class="text-suave">Em Breve</span></div>
+                            <h3 class="font-titulo font-bold text-lg mt-1">O Meridiano Polar</h3>
+                            <p class="text-xs text-suave mt-1">Aventura • 2h 05min</p>
+                        </div>
+                        <button onclick="abrirTrailer('O Meridiano Polar')" class="mt-4 w-full py-2 rounded-lg border border-tema text-xs font-bold uppercase hover:bg-ouro">Ver Trailer</button>
+                    </div>
+                </article>
+            </div>
+
+            <p id="vazio" class="hidden text-center text-suave py-10">Nenhum filme encontrado para este filtro.</p>
+        </section>
+
+        <!-- PRINT 4: CARTÕES EXPLICATIVOS E SEÇÃO EDITORIAL -->
+        <section id="diferenciais" class="bg-topo border-y border-tema py-16 px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="font-titulo text-3xl font-bold text-center mb-10">Por que escolher o Lumina Cinema?</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-card border border-tema p-6 rounded-xl">
+                        <span class="material-symbols-outlined text-ouro text-3xl">4k</span>
+                        <h3 class="font-titulo text-xl font-bold mt-3">Projeção Laser 4K</h3>
+                        <p class="text-sm text-suave mt-2">Projetores a laser que entregam pretos profundos, fidelidade de cores e brilho uniforme na tela.</p>
+                    </div>
+                    <div class="bg-card border border-tema p-6 rounded-xl">
+                        <span class="material-symbols-outlined text-ouro text-3xl">surround_sound</span>
+                        <h3 class="font-titulo text-xl font-bold mt-3">Som Dolby Atmos</h3>
+                        <p class="text-sm text-suave mt-2">Áudio tridimensional distribuído pela sala para máxima imersão em cada cena.</p>
+                    </div>
+                    <div class="bg-card border border-tema p-6 rounded-xl">
+                        <span class="material-symbols-outlined text-ouro text-3xl">auto_awesome</span>
+                        <h3 class="font-titulo text-xl font-bold mt-3">Clube Lumina</h3>
+                        <p class="text-sm text-suave mt-2">Salve sua Watchlist, participe de sessões comentadas e garanta ingressos antecipados.</p>
+                    </div>
+                </div>
+
+                <!-- Seção Editorial -->
+                <div class="max-w-3xl mx-auto text-center mt-16 pt-12 border-t border-tema">
+                    <span class="text-ouro text-xs font-bold uppercase tracking-widest">Editorial Lumina</span>
+                    <blockquote class="font-titulo text-2xl md:text-3xl font-bold mt-4">
+                        "O cinema não é a reprodução da realidade, mas a revelação do que permanece invisível aos olhos comuns."
+                    </blockquote>
+                    <p class="text-ouro text-xs font-bold uppercase mt-4">Elena Vance • Caderno Lumina</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRINT 5: FORMULÁRIO DE CONTATO -->
+        <section id="contato" class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-start">
+            <div>
+                <span class="text-ouro text-xs font-bold uppercase tracking-widest">Atendimento</span>
+                <h2 class="font-titulo text-3xl font-bold mt-2">Fale com o Lumina Cinema</h2>
+                <p class="text-suave mt-3 text-sm leading-relaxed">
+                    Envie suas dúvidas sobre programação, acessibilidade nas salas ou sessões especiais.
+                </p>
+                <ul class="mt-6 space-y-2 text-sm">
+                    <li>📍 Setor Cultural Norte, Quadra 02 — Brasília, DF</li>
+                    <li>✉️ contato@luminacinema.com.br</li>
+                    <li>🕒 Bilheteria aberta das 13h às 23h</li>
+                </ul>
+            </div>
+
+            <form onsubmit="enviarContato(event)" class="bg-card border border-tema p-6 rounded-2xl space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Nome Completo *</label>
+                    <input type="text" required placeholder="Tiago Cordeiro" class="campo">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">E-mail *</label>
+                    <input type="email" required placeholder="voce@exemplo.com" class="campo">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Assunto *</label>
+                    <select required class="campo">
+                        <option value="">Selecione...</option>
+                        <option>Ingressos e Programação</option>
+                        <option>Acessibilidade nas Salas</option>
+                        <option>Clube Lumina</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Mensagem *</label>
+                    <textarea rows="3" required placeholder="Escreva sua mensagem..." class="campo"></textarea>
+                </div>
+                <button type="submit" class="btn-ouro px-6 py-2.5 rounded-lg font-bold text-sm">Enviar Mensagem</button>
+            </form>
+        </section>
+    </main>
+
+    <!-- MODAL DE TRAILER -->
+    <div id="modal-trailer" class="modal">
+        <div class="bg-card border border-tema rounded-2xl p-6 max-w-lg w-full text-center">
+            <div class="flex justify-between items-center border-b border-tema pb-3 mb-4">
+                <h3 id="titulo-trailer" class="font-titulo font-bold">Trailer Oficial</h3>
+                <button onclick="fecharModal('modal-trailer')" class="text-xl font-bold">✕</button>
+            </div>
+            <span class="material-symbols-outlined text-ouro text-6xl">play_circle</span>
+            <p class="text-sm text-suave mt-2">Prévia 4K disponível na estreia da temporada Lumina 2026.</p>
+        </div>
+    </div>
+
+    <!-- PRINT 6: MODAL DE LOGIN (CLUBE LUMINA) -->
+    <div id="modal-login" class="modal">
+        <div class="bg-card border border-tema rounded-2xl p-6 max-w-md w-full">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-ouro font-titulo font-bold">🎬 CLUBE LUMINA</span>
+                <button onclick="fecharModal('modal-login')" class="text-xl font-bold">✕</button>
+            </div>
+            <h3 class="font-titulo text-2xl font-bold">Acesse sua conta</h3>
+            <p class="text-xs text-suave mt-1 mb-4">Sincronize sua Watchlist e reserve ingressos.</p>
+
+            <form onsubmit="fazerLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">E-mail *</label>
+                    <input id="login-email" type="email" required placeholder="tiago.cordeiro@ceub.edu.br" class="campo">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase mb-1">Senha *</label>
+                    <div class="relative">
+                        <input id="login-senha" type="password" required minlength="6" placeholder="Mínimo 6 caracteres" class="campo pr-10">
+                        <button type="button" onclick="verSenha()" class="absolute right-3 top-2.5 text-xs text-ouro font-bold">Ver</button>
+                    </div>
+                </div>
+                <button type="submit" class="btn-ouro w-full py-2.5 rounded-lg font-bold">Entrar no Lumina Cinema</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICAÇÃO TOAST -->
+    <div id="toast" class="toast bg-card border border-tema shadow-xl">
+        <span class="material-symbols-outlined text-ouro">check_circle</span>
+        <span id="toast-msg" class="text-sm font-semibold">Atualizado!</span>
+    </div>
+
+    <!-- PRINT 5: RODAPÉ -->
+    <footer class="bg-topo border-t border-tema py-8 px-4 text-sm">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <strong class="font-titulo text-ouro tracking-wider">LUMINA CINEMA</strong>
+                <p class="text-xs text-suave">Acessibilidade WCAG 2.1 AA/AAA</p>
+            </div>
+            <div class="flex gap-5 text-suave">
+                <a href="#inicio" class="hover:text-ouro">Início</a>
+                <a href="#carrossel" class="hover:text-ouro">Destaques</a>
+                <a href="#catalogo" class="hover:text-ouro">Catálogo</a>
+                <a href="#contato" class="hover:text-ouro">Contato</a>
+            </div>
+            <p class="text-xs text-suave">Tiago Cordeiro • RA 22604732 (CEUB - 2026)</p>
+        </div>
+    </footer>
+
+    <script src="projeto.js"></script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+/* =========================================
+   LUMINA CINEMA - ESTILOS SIMPLIFICADOS
+   Autor: Tiago Cordeiro | RA: 22604732
+   ========================================= */
+
+   :root {
+    --fundo: #111318;
+    --topo: #0c0e13;
+    --card: #1a1b21;
+    --ouro: #ffc665;
+    --texto-ouro: #432c00;
+    --texto: #e2e2e9;
+    --suave: #d4c4b0;
+    --borda: rgba(255, 255, 255, 0.12);
+}
+
+html.light {
+    --fundo: #f8f7f4;
+    --topo: #efede8;
+    --card: #ffffff;
+    --ouro: #8a5300;
+    --texto-ouro: #ffffff;
+    --texto: #18181b;
+    --suave: #4a443b;
+    --borda: rgba(0, 0, 0, 0.15);
+}
+
+html.alto-contraste {
+    --fundo: #000000;
+    --topo: #000000;
+    --card: #121212;
+    --ouro: #ffd700;
+    --texto-ouro: #000000;
+    --texto: #ffffff;
+    --suave: #f5f5f5;
+    --borda: #ffd700;
+}
+
+body {
+    background-color: var(--fundo);
+    color: var(--texto);
+    font-family: 'Manrope', sans-serif;
+    transition: background-color 0.25s, color 0.25s;
+}
+
+.font-titulo { font-family: 'Space Grotesk', sans-serif; }
+.bg-topo     { background-color: var(--topo); }
+.bg-card     { background-color: var(--card); }
+.bg-header   { background-color: var(--topo); }
+.text-ouro   { color: var(--ouro); }
+.text-suave  { color: var(--suave); }
+.border-tema { border-color: var(--borda); }
+
+.btn-ouro, .hover\:bg-ouro:hover {
+    background-color: var(--ouro);
+    color: var(--texto-ouro);
+}
+
+.a11y-btn, .tab {
+    background-color: var(--card);
+    color: var(--texto);
+    border: 1px solid var(--borda);
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.tab { border-radius: 999px; padding: 8px 18px; font-size: 0.875rem; }
+.a11y-btn:hover, .a11y-btn.ativo, .tab:hover, .tab.ativo {
+    background-color: var(--ouro);
+    color: var(--texto-ouro);
+    border-color: var(--ouro);
+}
+
+.hero-gradiente {
+    background: linear-gradient(to right, var(--fundo) 20%, transparent 90%);
+}
+.slide-legenda {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 15%, transparent 85%);
+}
+.seta-carrossel {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 24px;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.5);
+}
+.dot.ativo { width: 24px; background: var(--ouro); }
+
+.fav-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    padding: 6px;
+    border-radius: 50%;
+    display: flex;
+}
+.fav-btn.salvo { background: var(--ouro); color: var(--texto-ouro); }
+
+.campo {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: var(--fundo);
+    border: 1px solid var(--borda);
+    color: var(--texto);
+    outline: none;
+}
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 16px;
+}
+.modal.aberto {
+    display: flex !important;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 18px;
+    border-radius: 12px;
+}
+.toast.visivel {
+    display: flex !important;
+}
